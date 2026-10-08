@@ -1,6 +1,6 @@
-# The Maly Libft Tester
+# 42 Libft Tester
 
-[The Maly Libft Tester Showcase Video on Youtube](https://www.youtube.com/watch?v=tkeJa7gTiRA) (1.1.0)
+[42 Libft Tester Showcase Video on Youtube](https://www.youtube.com/watch?v=tkeJa7gTiRA) (1.1.0)
 
 Currently up-to-date with Libft subject version 19.2.
 
@@ -54,7 +54,7 @@ For more information about command-line arguments that can be parsed, run:
 Create one variable for the Tester's directory path and one for optional Tester's arguments.<br>
 ```make
 #  Example setup
-TESTER_DIRECTORY_PATH := ../maly_libft_tester
+TESTER_DIRECTORY_PATH := ../42_libft_tester
 TESTER_ARGUMENTS := --set-timeout-ms 50
 ```
 Create a new rule named test:
