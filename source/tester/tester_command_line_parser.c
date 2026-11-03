@@ -9,7 +9,7 @@ String8 get_tester_version(Arena *arena)
 }
 
 read_only global String8 global_tester_help_text = String8Literal(
-    "The Maly Libft Tester - Help\n"
+    "42 Libft Tester - Help\n"
     "The following options may be used when starting the tester from the command line:\n\n"
     "  --set-timeout-ms <base-10 value>\n"
     "    Set a timeout for testing in milliseconds.\n"
