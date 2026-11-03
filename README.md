@@ -2,7 +2,7 @@
 
 [The Maly Libft Tester Showcase Video on Youtube](https://www.youtube.com/watch?v=tkeJa7gTiRA) (1.1.0)
 
-Currently up-to-date with Libft subject version 19.2.
+Currently up-to-date with Libft subject version: 19.3
 
 A fast, cross-platform (Linux/macOS) Libft tester for 42 students. This tester executes over 500 tests in under 0.02 seconds.<br>
 
@@ -76,7 +76,7 @@ fclean: clean
 That is it! Now, run ```make test``` to build and run the tester.
 
 # Libft Subject Version Compatibility
-This tester currently tracks Libft subject version 19.2. If a newer subject version is released and the tester falls behind, please create an issue so it can be updated. Thank you.
+If a newer subject version is released and the tester falls behind, please create an issue so it can be updated. Thank you.
 
 ## Acknowledgments
 The base and OS layers of this project are derived from [RADDebugger](https://github.com/EpicGamesExt/raddebugger) by Epic Games. I would like to thank the RAD team for sharing their high-quality code, which significantly improved the robustness and portability of this tester.
