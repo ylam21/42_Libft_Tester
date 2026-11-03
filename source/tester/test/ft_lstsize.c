@@ -4,10 +4,10 @@ TestPayload callback_for_lstsize(TestParameters test_parameters)
     TestPayload payload = {0};
     TestParameters_Size parameters = test_parameters.size;
 
-    int expected_size = (int)parameters.size;
+    unsigned int expected_size = (unsigned int)parameters.size;
 
     t_list *head = 0;
-    for(int index = 0; index < expected_size; index += 1)
+    for(unsigned int index = 0; index < expected_size; index += 1)
     {
         t_list *new_node  = (t_list *)malloc(sizeof(t_list));
         new_node->content = (void *)"Dummy Data";
@@ -19,7 +19,7 @@ TestPayload callback_for_lstsize(TestParameters test_parameters)
     thread_static_allocation_count = 0;
 
     // Call the libft function.
-    int got_size = ft_lstsize((t_list *)head);
+    unsigned int got_size = ft_lstsize((t_list *)head);
 
     if(got_size == expected_size)
     {
@@ -65,7 +65,7 @@ read_only global TestGroup test_group_ft_lstsize =
     .test_count               = 5,
     .name                     = String8Literal("ft_lstsize"),
     .file                     = String8Literal(__FILE__),
-    .function_return_type     = TestReturnType_Int,
+    .function_return_type     = TestReturnType_Size,
     .function_parameters_type = TestParametersType_Size,
     .libft_function           = (void *)ft_lstsize,
     .callback                 = (TestCallbackFunction)callback_for_lstsize,

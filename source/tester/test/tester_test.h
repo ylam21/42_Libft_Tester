@@ -81,7 +81,7 @@ typedef struct s_list
 
 WEAK_DECL(t_list *, ft_lstnew, (void *content));
 WEAK_DECL(void, ft_lstadd_front, (t_list **lst, t_list *newlst));
-WEAK_DECL(int, ft_lstsize, (t_list *lst));
+WEAK_DECL(unsigned int, ft_lstsize, (t_list *lst));
 WEAK_DECL(t_list *, ft_lstlast, (t_list *lst));
 WEAK_DECL(void, ft_lstadd_back, (t_list **lst, t_list *newlst));
 WEAK_DECL(void, ft_lstdelone, (t_list *lst, void (*del)(void *)));
