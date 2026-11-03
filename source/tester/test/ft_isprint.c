@@ -7,7 +7,7 @@ TestPayload callback_for_isprint(TestParameters test_parameters)
 
     // Call libc function.
     int expected_return = isprint((int)parameters.a);
-    // Note from Libft subject (version 19.2):
+    // Note from Libft subject:
     //    For the character classification functions (isalpha, isdigit, isalnum, isascii, isprint), the return value must be:
     //    • 1 if the character matches the tested class
     //    • 0 if the character does not match
