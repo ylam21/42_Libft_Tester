@@ -16,30 +16,17 @@ OS_NAME=$(uname -s)
 COMPILER=gcc
 TESTER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TESTER_SOURCE_FILE="$TESTER_DIR/source/main.c"
+TESTER_OBJ_FILE="$TESTER_DIR/tester.o"
 CFLAGS="-Wall -Wextra -Werror -Wno-unused-function -Wno-unused-variable -I$TESTER_DIR/source/third_party"
 
 if [[ "$OS_NAME" = "Linux" ]]; then
+    OS_CFLAGS="-fno-PIE"
     LDFLAGS="-lm -lbsd"
-    LINUX_CFLAGS="$CFLAGS -fno-PIE"
-
-    $COMPILER                                   \
-    $LINUX_CFLAGS                               \
-    $TESTER_SOURCE_FILE                         \
-    -Wl,--whole-archive "$LIBFT_ARCHIVE_PATH"   \
-    -Wl,--no-whole-archive                      \
-    -Wl,--wrap=malloc                           \
-    -Wl,--wrap=free                             \
-    $LDFLAGS                                    \
-    -no-pie                                     \
-    -o $NAME
-
+    LINK_FLAGS="-Wl,--whole-archive \"$LIBFT_ARCHIVE_PATH\" -Wl,--no-whole-archive -Wl,--wrap=malloc -Wl,--wrap=free -no-pie"
 elif [[ "$OS_NAME" = "Darwin" ]]; then
+    OS_CFLAGS="-fPIE"
     LDFLAGS="-lm"
 
-    # macOS requires Position Independent Executables
-    MAC_CFLAGS="$CFLAGS -fPIE"
-
-    # The Mach-O linker requires explicit permission to leave missing weak symbols as NULL.
     ALLOWED_UNDEFINED=""
     for func in ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint ft_strlen ft_memset \
                 ft_bzero ft_memcpy ft_memmove ft_strlcpy ft_strlcat ft_toupper ft_tolower \
@@ -51,17 +38,21 @@ elif [[ "$OS_NAME" = "Darwin" ]]; then
         ALLOWED_UNDEFINED="$ALLOWED_UNDEFINED -Wl,-U,_$func"
     done
 
-    $COMPILER                           \
-    $MAC_CFLAGS                         \
-    $TESTER_SOURCE_FILE                 \
-    -Wl,-force_load -Wl,"$LIBFT_ARCHIVE_PATH" \
-    $ALLOWED_UNDEFINED                  \
-    $LDFLAGS                            \
-    -o $NAME
+    LINK_FLAGS="-Wl,-force_load -Wl,\"$LIBFT_ARCHIVE_PATH\" $ALLOWED_UNDEFINED"
 else
     echo "Error: OS '$OS_NAME' not supported."
     exit 1
 fi
+
+if [ ! -f "$TESTER_OBJ_FILE" ] || [ "$TESTER_SOURCE_FILE" -nt "$TESTER_OBJ_FILE" ]; then
+    $COMPILER $CFLAGS $OS_CFLAGS -c "$TESTER_SOURCE_FILE" -o "$TESTER_OBJ_FILE"
+    if [[ $? -ne 0 ]]; then
+        echo "Compilation failed."
+        exit 1
+    fi
+fi
+
+eval $COMPILER $CFLAGS $OS_CFLAGS "$TESTER_OBJ_FILE" $LINK_FLAGS $LDFLAGS -o $NAME
 
 if [[ $? -eq 0 ]]; then
     echo "Build successful: $NAME"
