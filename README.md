@@ -15,7 +15,7 @@ A fast, cross-platform (Linux/macOS) Libft tester for 42 students. This tester e
 6. [Libft Subject Version Compatibility](#libft-subject-version-compatibility)
 7. [Acknowledgments](#acknowledgments)
 ---
-![Tester UI](assets/tester_ui.png)
+![Tester UI](images/tester_ui.png)
 
 # Prerequisites
 *   Linux or MacOS
