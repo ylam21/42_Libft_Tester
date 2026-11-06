@@ -1,42 +1,33 @@
 # 42 Libft Tester
 
-[42 Libft Tester Showcase Video on Youtube](https://www.youtube.com/watch?v=tkeJa7gTiRA) (1.1.0)
+[Watch 42 Libft Tester Showcase Video on Youtube](https://www.youtube.com/watch?v=tkeJa7gTiRA) (1.1.0)
 
-Currently up-to-date with Libft subject version: 19.3
+A fast, cross-platform unit tester for the 42 school `libft` project. Executes over 500 tests in under 0.02 seconds.<br>
+Currently up-to-date with Libft subject version 19.3<br>
 
-A fast, cross-platform (Linux/macOS) Libft tester for 42 students. This tester executes over 500 tests in under 0.02 seconds.<br>
+# Quick Start
+You need a Linux or macOS machine with `gcc` or `clang`, and your compiled `libft.a` library.
+1. Clone this tester next to your libft repository:
+```bash
+git clone https://github.com/ylam21/42_Libft_Tester.git
+cd 42_Libft_Tester
+```
+2. Build and run the tester against your archive:
+```bash
+./build.sh ../libft/libft.a
+./tester
+ ```
+*(Run `./tester help` for advanced command-line arguments).*
 
 # Table of Contents
-1. [Prerequisites](#prerequisites)
-2. [Building and Running the Tester](#building-and-running-the-tester)
-3. [What this tester DOES check](#what-this-tester-does-check)
-4. [What this tester does NOT check](#what-this-tester-does-not-check)
-5. [Setting up automated tests in your Libft Makefile](#setting-up-automated-tests-in-your-libft-makefile)
-6. [Libft Subject Version Compatibility](#libft-subject-version-compatibility)
-7. [Acknowledgments](#acknowledgments)
----
+1. [What this tester DOES check](#what-this-tester-does-check)
+2. [What this tester does NOT check](#what-this-tester-does-not-check)
+3. [Setting up automated tests in your Libft Makefile](#setting-up-automated-tests-in-your-libft-makefile)
+4. [Libft Subject Version Compatibility](#libft-subject-version-compatibility)
+5. [Acknowledgments](#acknowledgments)
+
 ![Tester UI](images/tester_ui.png)
 
-# Prerequisites
-*   Linux or MacOS
-*   GCC or Clang compiler
-*   Your compiled libft.a library
-
-# Building and Running the Tester
-Use the provided `build.sh` script.<br>
-Pass the path to your compiled `libft.a` archive as the only argument.
-
-```bash
-./build.sh <path/to/libft.a>
-```
-Run the tester:
-```bash
-./tester
-```
-For more information about command-line arguments that can be parsed, run:
-```bash
-./tester help
-```
 # What this tester DOES check
 *   Checks correct outputs for all Libft functions.<br>
 *   Checks memory leaks (using linker-level wrapping on Linux and flat namespace overrides on macOS).<br>
@@ -51,29 +42,23 @@ For more information about command-line arguments that can be parsed, run:
 *   Does NOT check for any README requirements.<br>
 
 # Setting up automated tests in your Libft Makefile
-Create one variable for the Tester's directory path and one for optional Tester's arguments.<br>
+Automate your testing by adding these rules directly to your `libft` Makefile:
 ```make
-#  Example setup
-TESTER_DIRECTORY_PATH := ../42_libft_tester
-TESTER_ARGUMENTS := --set-timeout-ms 50
-```
-Create a new rule named test:
-```make
+#  Path to the cloned tester
+TESTER_DIR := ../42_Libft_Tester
+TESTER_ARS := --set-timeout-ms 50
+
 test: $(NAME)
-	$(TESTER_DIRECTORY_PATH)/build.sh ./$(NAME)
-	./tester $(TESTER_ARGUMENTS)
-```
-And declare it as .PHONY so it always runs:
-```make
+	$(TESTER_DIR)/build.sh ./$(NAME)
+	$(TESTER_DIR)/tester $(TESTER_ARGS)
+	
+# Add the tester binary to your existing fclean
+fclean: clean
+	$(RM) $(NAME) tester
+	
 .PHONY: all clean fclean re test
 ```
-Add the compiled tester executable to your existing fclean rule so it gets properly removed alongside your library:
-```make
-fclean: clean
-	$(RM) $(NAME)
-	$(RM) tester
-```
-That is it! Now, run ```make test``` to build and run the tester.
+Now, just type `make test` inside your libft folder.
 
 # Libft Subject Version Compatibility
 If a newer subject version is released and the tester falls behind, please create an issue so it can be updated. Thank you.
