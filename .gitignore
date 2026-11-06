@@ -6,3 +6,6 @@ debug_info_for_failed_tests.txt
 
 # Raddebuger
 tester.rdi
+
+# Object files
+*.o
